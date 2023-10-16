@@ -42,11 +42,27 @@ func reverseList2(head *ListNode) *ListNode {
 	return curr
 }
 
+// 解法3
+func reverseList3(head *ListNode) *ListNode {
+	return reverseListRecursively(head)
+}
+
+func reverseListRecursively(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	newHead := reverseListRecursively(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return newHead
+}
+
 func main() {
 	// Example usage:
 	// Initialize a linked list: 1->2->3->4->5
 	head := &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}}
-	result := reverseList2(head)
+	result := reverseList3(head)
 	for result != nil {
 		fmt.Println(result.Val)
 		result = result.Next
